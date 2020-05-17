@@ -13,6 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (){
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/login/anunciante', 'Auth\LoginController@showAnuncianteLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+Route::get('/register/anunciante', 'Auth\RegisterController@showAnuncianteRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/login/anunciante', 'Auth\LoginController@anuncianteLogin');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+Route::post('/register/anunciante', 'Auth\RegisterController@createAnunciante');
+
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/admin', 'admin');
+Route::view('/anunciante', 'anunciante');
+
